@@ -77,12 +77,12 @@ while True:
         if 0.75 < circularity < 1.25:  # Circularity close to 1 indicates a circle
             continue
 
-        # # Approximate the contour
-        # epsilon = 0.06 * cv2.arcLength(cnt, True)  # Adjust the epsilon value for precision
-        # approx = cv2.approxPolyDP(cnt, epsilon, True)
-        # for point in approx:
-        #     approx_x, approx_y = point[0]
-        #     cv2.circle(frame_with_labels, (approx_x, approx_y), 5, (0, 0, 255), -1)  # Draw corners
+        # Approximate the contour
+        epsilon = 0.06 * cv2.arcLength(cnt, True)  # Adjust the epsilon value for precision
+        approx = cv2.approxPolyDP(cnt, epsilon, True)
+        for point in approx:
+            approx_x, approx_y = point[0]
+            cv2.circle(frame_with_labels, (approx_x, approx_y), 5, (0, 0, 255), -1)  # Draw corners
 
         # # Define a kernel for erosion
         # kernel = np.ones((5, 5), np.uint8)  # Adjust kernel size for the desired effect
@@ -94,7 +94,7 @@ while True:
 
         # Draw the contour
         # cv2.drawContours(frame_with_labels, [cnt], -1, (0, 255, 0), 3)
-        cv2.rectangle(frame_with_labels, (x, y), (x + w, y + h), (0, 255, 0), 3)
+        # cv2.rectangle(frame_with_labels, (x, y), (x + w, y + h), (0, 255, 0), 3)
         # Get the bounding rectangle to position the label
         label_position = (x, y - 10)  # Position the label slightly above the contour
 
