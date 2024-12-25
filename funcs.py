@@ -10,7 +10,7 @@ def check_area(contours:np.ndarray)-> float:
     # if not (MIN_POSSIBLE_POKER_AREA < cnt_area < MAX_POSSIBLE_POKER_AREA):
 
 def get_corners(contours: np.ndarray)-> np.ndarray:
-    epsilon = 0.02 * cv2.arcLength(contours, True)  # Adjust epsilon for accuracy
+    epsilon = 0.05 * cv2.arcLength(contours, True)  # Adjust epsilon for accuracy
     approx = cv2.approxPolyDP(contours, epsilon, True)
     if len(approx) == 4:
         corners = approx.reshape(4, 2)  # Extract the (x, y) points of the corners
