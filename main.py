@@ -49,10 +49,22 @@ while True:
             print(c)
             cv2.circle(frame,(int(c[0]),int(c[1])),3,(255,0,0),3,1)
         card_straight = funcs.warp_image(adaptive_thresh, WARP_LENGTH_PIXEL, WARP_HEIGHT_PIXEL, corners)
-        cv2.imshow('warpperspective',card_straight)
-        cv2.waitKey(1)
-        card_border = card_straight[:int(WARP_HEIGHT_PIXEL*0.25),:int(WARP_LENGTH_PIXEL*0.2)]
+        # cv2.imshow('warpperspective',card_straight)
+        # cv2.waitKey(1)
+        card_border = card_straight[:int(WARP_HEIGHT_PIXEL*0.3),:int(WARP_LENGTH_PIXEL*0.25)]
 
+        # card_border_bottom = card_straight[int(WARP_HEIGHT_PIXEL*(1-0.3)):,int(WARP_LENGTH_PIXEL*(1-0.25)):]
+        # cv2.imshow('cardborder', card_border)
+        # cv2.moveWindow('cardborder', 40,500)
+        # cv2.imshow('cardborderbottom', card_border_bottom)
+
+        card_border_contour, _ = cv2.findContours(card_border,cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE)
+        for c in card_border_contour:
+            x2,y2,w2,h2 = cv2.boundingRect(c)
+            cv2.rectangle(card_border,(x2,y2),(x2+w2,y2+h2),(255,255,255),2)
+            cv2.imshow('cardborder',card_border[y2:y2+h2,x2:x2+w2])
+            cv2.waitKey(10)
+        
         # 花紋比對寫在這
         
 
