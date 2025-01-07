@@ -6,7 +6,7 @@ import time
 
 
 
-video_file = 'self_video_2.mp4'
+video_file = 'video5.mp4'
 video = cv2.VideoCapture(video_file)
 ret, frame = video.read()
 reference_folder_number = Path('number')
@@ -25,6 +25,8 @@ WARP_HEIGHT_PIXEL = 300
 WARP_LENGTH_PIXEL = 200
 
 
+# output_folder1 = Path('output_number')
+# output_folder2= Path('output_suits')
 reference_folder_number = Path('number')
 reference_folder_suits = Path('suit')
 # reference_number = cv2.imread('reference_number.jpg', cv2.IMREAD_GRAYSCALE)
@@ -37,6 +39,9 @@ number_final_result = list()
 pattern_final_result = list()
 update_label_counter = np.uint8(0)
 update_label_frame_limit = np.uint(15)
+# Ensure the folder exists
+# output_folder1.mkdir(parents=True, exist_ok=True)
+# output_folder2.mkdir(parents=True, exist_ok=True)
 
 while True:
     ret, frame = video.read()
@@ -85,6 +90,10 @@ while True:
             if  400 <= pattern_contour_area < 800 :
                 pattern_contour_area_confirmed = pattern_roi[y2:y2 + h2, x2:x2 + w2]
                 funcs.process_card_suits(x, y, pattern_contour_area_confirmed, pattern_coord_array)
+                # cv2.rectangle(pattern_roi, (x2, y2), (x2 + w2, y2 + h2), (255, 255, 255), 2)
+                # cv2.imshow('cardborder', sub_region[y2:y2 + h2, x2:x2 + w2])
+                # output_path = output_folder2 / f'{video_file}_{id}_border.jpg'
+                # cv2.imwrite(str(output_path), sub_region[y2:y2 + h2, x2:x2 + w2])
 
         # 用字典追蹤每個frame偵測到的結果
         if len(pattern_coord_array) != 0:
@@ -96,6 +105,10 @@ while True:
             if  700 <=number_contour_area < 1000 :
                 number_contour_area_confirmed= card_border[y2:y2 + h2, x2:x2 + w2]
                 funcs.process_card_number(x, y, number_contour_area_confirmed, number_coord_array)
+                # cv2.rectangle(card_border, (x2, y2), (x2 + w2, y2 + h2), (255, 255, 255), 2)
+                # cv2.imshow('cardborder2', card_border[y2:y2 + h2, x2:x2 + w2])
+                # output_path = output_folder1 / f'{video_file}_{id}_border.jpg'
+                # cv2.imwrite(str(output_path), card_border[y2:y2 + h2, x2:x2 + w2])
 
         if len(number_coord_array) != 0:
             funcs.add_detection_to_dictionary(number_coord_tracker_dict, number_coord_array)
