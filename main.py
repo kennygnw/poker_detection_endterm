@@ -75,7 +75,6 @@ while True:
         pattern_roi_end_x = int(width * 0.8)
         pattern_roi_end_y = int(height * 1)
         pattern_roi = card_border[pattern_roi_start_y:pattern_roi_end_y, pattern_roi_start_x:pattern_roi_end_x]
-
         pattern_roi_contour, _ = cv2.findContours(pattern_roi, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
         card_border_contour, _ = cv2.findContours(card_border, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
         # 提取花色區域
