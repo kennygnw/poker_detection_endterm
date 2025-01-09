@@ -47,7 +47,7 @@ while True:
         gray, 255,  # Max value
         cv2.ADAPTIVE_THRESH_MEAN_C,
         cv2.THRESH_BINARY_INV,  # Threshold type
-        11, 9  # Block size and constant
+        11, 5  # Block size and constant
     )
     # 著輪廓
     contours, _ = cv2.findContours(adaptive_thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
@@ -77,6 +77,8 @@ while True:
         pattern_roi = card_border[pattern_roi_start_y:pattern_roi_end_y, pattern_roi_start_x:pattern_roi_end_x]
         pattern_roi_contour, _ = cv2.findContours(pattern_roi, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
         card_border_contour, _ = cv2.findContours(card_border, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+        # cv2.imshow('cb', card_border)
+        # cv2.imshow('pr', pattern_roi)
         # 提取花色區域
         for pattern_contour in pattern_roi_contour:
             x2, y2, w2, h2 = cv2.boundingRect(pattern_contour)
