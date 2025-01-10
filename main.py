@@ -6,7 +6,7 @@ import time
 
 
 
-video_file = 'video1.mp4'
+video_file = 'video9.mp4'
 video = cv2.VideoCapture(video_file)
 ret, frame = video.read()
 reference_folder_number = Path('number')
@@ -36,8 +36,9 @@ number_coord_tracker_dict = dict()
 number_final_result = list()
 pattern_final_result = list()
 update_label_counter = np.uint8(0)
-update_label_frame_limit = np.uint(15)
-
+update_label_frame_limit = np.uint8(10)
+output_dataset_buffer_path = Path('dataset_buffer')
+imwrite_counter = 0
 while True:
     ret, frame = video.read()
     # 灰階
@@ -49,6 +50,13 @@ while True:
         cv2.THRESH_BINARY_INV,  # Threshold type
         11, 3  # Block size and constant
     )
+    # filename = f"{imwrite_counter}.jpg"
+    # cv2.imwrite(str(output_dataset_buffer_path / filename), frame)
+    # imwrite_counter += 1
+    # filename = f"{imwrite_counter}.jpg"
+    # cv2.imwrite(str(output_dataset_buffer_path / filename), adaptive_thresh)
+    # imwrite_counter += 1
+
     # 著輪廓
     contours, _ = cv2.findContours(adaptive_thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
     # 偵測到輪廓迴圈
@@ -96,6 +104,9 @@ while True:
             number_contour_area = h2 * w2
             if  700 <=number_contour_area < 1000 :
                 number_contour_area_confirmed= card_border[y2:y2 + h2, x2:x2 + w2]
+                # filename = f"{imwrite_counter}.jpg"
+                # cv2.imwrite(str(output_dataset_buffer_path/filename),number_contour_area_confirmed)
+                # imwrite_counter += 1
                 funcs.process_card_number(x, y, number_contour_area_confirmed, number_coord_array)
 
         if len(number_coord_array) != 0:
