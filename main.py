@@ -6,7 +6,7 @@ import time
 
 
 
-video_file = 'self_video_2.mp4'
+video_file = 'video1.mp4'
 video = cv2.VideoCapture(video_file)
 ret, frame = video.read()
 reference_folder_number = Path('number')
@@ -47,7 +47,7 @@ while True:
         gray, 255,  # Max value
         cv2.ADAPTIVE_THRESH_MEAN_C,
         cv2.THRESH_BINARY_INV,  # Threshold type
-        11, 5  # Block size and constant
+        11, 3  # Block size and constant
     )
     # 著輪廓
     contours, _ = cv2.findContours(adaptive_thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
