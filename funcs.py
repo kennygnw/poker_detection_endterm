@@ -123,7 +123,7 @@ def process_card_number(coord_x, coord_y, card_number, coordinate_array):
     for name, ref_image in reference_images.items():
         xor_diff = cv2.bitwise_xor(card_number, ref_image)
         diff_value = np.sum(xor_diff)  # 计算 XOR 差异的总和
-        print(name, "Diff_value", diff_value)
+        # print(name, "Diff_value", diff_value)
         if diff_value < min_diff:
             min_diff = diff_value
             matched_digit = name  # 保存对应的文件名（数字）

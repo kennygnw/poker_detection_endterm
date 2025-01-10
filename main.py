@@ -50,12 +50,6 @@ while True:
         cv2.THRESH_BINARY_INV,  # Threshold type
         11, 3  # Block size and constant
     )
-    # filename = f"{imwrite_counter}.jpg"
-    # cv2.imwrite(str(output_dataset_buffer_path / filename), frame)
-    # imwrite_counter += 1
-    # filename = f"{imwrite_counter}.jpg"
-    # cv2.imwrite(str(output_dataset_buffer_path / filename), adaptive_thresh)
-    # imwrite_counter += 1
 
     # 著輪廓
     contours, _ = cv2.findContours(adaptive_thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
@@ -119,6 +113,11 @@ while True:
             number_final_result = funcs.get_dict_key_with_highest_counter(number_coord_tracker_dict)
             pattern_final_result = funcs.get_dict_key_with_highest_counter(pattern_coord_tracker_dict)
             update_label_counter = 0
+            # filename = f"{imwrite_counter}.jpg"
+            # cv2.imwrite(str(output_dataset_buffer_path/filename),frame)
+            # imwrite_counter += 1
+            # print(number_coord_tracker_dict)
+            # print(pattern_coord_tracker_dict)
             number_coord_tracker_dict.clear()
             pattern_coord_tracker_dict.clear()
     # 上字
